@@ -1,0 +1,31 @@
+/**
+ * @fileoverview 컨텐츠 영역 탭바 위젯 익스포트
+ * @description 드래그 앤 드롭이 가능한 탭바 컴포넌트들
+ */
+
+export { default as TabBar } from './ui/tab-bar';
+export { default as TabGroup } from './ui/tab-group';
+export { default as DropZoneOverlay } from './ui/drop-zone-overlay';
+export { default as DoubleSplitOverlay } from './ui/double-split-overlay';
+export { default as TripleSplitOverlay } from './ui/triple-split-overlay';
+export { default as DynamicTab } from './ui/dynamic-tab';
+export { default as DraggableTab } from './ui/draggable-tab';
+export { default as ResizablePanelGroup } from './ui/resizable-panel-group';
+export { SplitModeSelect } from './ui/split-mode-select';
+export { useTabStore } from './model/tabStore';
+
+export type { TabItem, TabBarProps } from './ui/tab-bar';
+export type { TabGroupProps } from './ui/tab-group';
+export type { DropZoneOverlayProps, DropPosition } from './ui/drop-zone-overlay';
+export type { DoubleSplitOverlayProps, DoubleSplitPosition } from './ui/double-split-overlay';
+export type { TripleSplitOverlayProps, TripleSplitPosition } from './ui/triple-split-overlay';
+export type { 
+    DynamicTab as DynamicTabType, 
+    TabBarState, 
+    TabActions, 
+    DragEndEvent,
+    TabArea,
+    SplitMode,
+    TabAreas,
+    TabGroupState
+} from './model/types';
