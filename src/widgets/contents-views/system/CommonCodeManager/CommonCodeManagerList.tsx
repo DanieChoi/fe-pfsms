@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from "react";
-import DataGrid, { CellClickArgs, SelectColumn, Column as GridColumn } from "react-data-grid";
+import { DataGrid, CellClickArgs, SelectColumn, Column as GridColumn } from "react-data-grid";
 
 import { CommonCodeSearch } from "./CommonCodeManagerSearch";
 import TitleWrap from "@/components/TitleWrap";
