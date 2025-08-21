@@ -27,13 +27,13 @@ import Header from "@/widgets/header";
 import Sidebar from "@/widgets/sidebar";
 import { ResizablePanelGroup } from "@/widgets/contents-tab-bar";
 import DropZoneOverlay, { DropPosition } from "@/widgets/contents-tab-bar/ui/drop-zone-overlay";
-import type { TabArea } from "@/widgets/contents-tab-bar";
 import { resolveViewByHref } from "@/widgets/contents-views/registry";
 import { useTabStore, restoreFromLocalStorage } from "@/widgets/contents-tab-bar/model/tabStore";
 import { ProtectedRoute } from "@/shared/ui";
 import { NAV_OPEN_TOP_EVENT } from "@/shared/config/header-menus";
-// import { findTopByPath } from "@/shared/config/common-nav-menus";
 import { useNavStore } from "@/shared/store/navStore";
+
+import type { TabArea } from "@/widgets/contents-tab-bar";
 
 // 확장된 드롭존 컴포넌트
 function ExpandedDropZone({ area }: { area: TabArea }) {
