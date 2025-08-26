@@ -5,7 +5,6 @@ import { Resizable, type ResizeCallback } from "re-resizable";
 
 import { NAV_OPEN_TOP_EVENT, type NavOpenTopDetail } from "@/shared/config/common-nav-menus";
 import { useNavStore } from "@/shared/store/navStore";
-// import SidebarMenuItem from "./SidebarMenuItem";
 import { useAuthStore } from "@/shared/store";
 import { IMenuItem } from "@/types/interface/object";
 import { resolveViewByHref } from "@/widgets/contents-views/registry";

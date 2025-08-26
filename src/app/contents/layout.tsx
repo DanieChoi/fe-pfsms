@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { resolveViewByHref } from "@/widgets/contents-views/registry";
 import {
     DndContext,
     closestCenter,
@@ -27,7 +28,6 @@ import Header from "@/widgets/header";
 import Sidebar from "@/widgets/sidebar";
 import { ResizablePanelGroup } from "@/widgets/contents-tab-bar";
 import DropZoneOverlay, { DropPosition } from "@/widgets/contents-tab-bar/ui/drop-zone-overlay";
-import { resolveViewByHref } from "@/widgets/contents-views/registry";
 import { useTabStore, restoreFromLocalStorage } from "@/widgets/contents-tab-bar/model/tabStore";
 import { ProtectedRoute } from "@/shared/ui";
 import { NAV_OPEN_TOP_EVENT } from "@/shared/config/header-menus";
@@ -96,7 +96,6 @@ function ExpandedDropZone({ area }: { area: TabArea }) {
 }
 
 export default function ContentsLayout({ children }: { children: ReactNode }) {
-  // const pathname = usePathname();
   const router = useRouter();
   const setFilteredTop = useNavStore((s) => s.setFilteredTop);
 
@@ -105,7 +104,7 @@ export default function ContentsLayout({ children }: { children: ReactNode }) {
   const [activeDropZone, setActiveDropZone] = useState<DropPosition | null>(null);
   const [draggedTab, setDraggedTab] = useState<{ id: string; label: string } | null>(null);
 
-  // Zustand 탭 스토어 사용
+  // Zustand 탭 스토어 사용 (splitMode 포함)
   const {
     tabAreas,
     activeTabsByArea,
@@ -485,7 +484,6 @@ export default function ContentsLayout({ children }: { children: ReactNode }) {
         <div className="flex flex-col h-screen bg-gray-50">
           {/* 헤더 - 전체 상단 */}
           <Header />
-
           {/* 본문 영역 - 사이드바 + 메인 콘텐츠 */}
           <div className="flex flex-1 overflow-hidden">
             <Sidebar />

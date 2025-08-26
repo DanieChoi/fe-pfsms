@@ -7,7 +7,7 @@
  * const tab: DynamicTab = {
  *   id: 'MNU100',
  *   label: '조직/사원',
- *   href: '/dashboard/organization',
+ *   href: '/contents/organization',
  *   menuNo: 'MNU100',
  *   isClosable: true,
  *   order: 0

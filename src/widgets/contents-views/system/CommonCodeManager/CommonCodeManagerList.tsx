@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from "react";
-import { DataGrid, CellClickArgs, SelectColumn, Column as GridColumn } from "react-data-grid";
+import { DataGrid, SelectColumn, Column as GridColumn } from "react-data-grid";
 
 import { CommonCodeSearch } from "./CommonCodeManagerSearch";
 import TitleWrap from "@/components/TitleWrap";
@@ -42,7 +42,7 @@ const commonDetaiilCodeColumns = [
   { key: "rmCntnt", name: "비고", width: 180, resizable: true },
 ];
 
-export interface DataProps {
+export interface CommonCodeListProps {
   no: number;
   cmmnCd: string;
   cmmnNm: string;
@@ -53,30 +53,39 @@ export interface DataProps {
   rmCntnt: string;
 }
 
+export interface CommonDetailCodeListProps {
+  no: number;
+  cmmnCd: string;
+}
+
 type Props = {
-  cmmnCd?: string;
   cmmnCdSearchParam?: CommonCodeSearch;
+  commonCodeList?: CommonCodeListProps[];
+  commonDetailCodeList?: CommonDetailCodeListProps[];
+  selectedCmmnCdCd?: string;
   onCommonCodeSelect: (cmmnCd: string) => void;
-  onCommonDetailCodeSelect: (cmmnCd: string) => void;
+  onCommonDetailCodeSelect: (cmmnDtlCd: string) => void;
 };
 
 export default function CommonCodeManagerList({
-  cmmnCd,
   cmmnCdSearchParam,
+  commonCodeList,
+  commonDetailCodeList,
+  selectedCmmnCdCd,
   onCommonCodeSelect,
   onCommonDetailCodeSelect,
 }: Props) {
 
-  const [tmpCommonCodes, setTmpCommonCodes] = useState<DataProps[]>([]);
+  const [tmpCommonCodes, setTmpCommonCodes] = useState<CommonCodeListProps[]>([]);
   const memoizedCommonCodeColumns = useMemo(() => commonCodeColumns, [commonCodeColumns]);
-  const [selectedCommonCodeRow, setSelectedCommonCodeRow] = useState<DataProps | null>(null);
+  const [selectedCommonCodeRow, setSelectedCommonCodeRow] = useState<CommonCodeListProps | null>(null);
 
-  const handleCellClick = ({ row }: CellClickArgs<Row>) => {
-    setSelectedCommonCodeRow(row);
-    onCommonCodeSelect(row.cmmnCd.toString());
+  const handleCellClick = (args: { row: Row; column: GridColumn<Row> }) => {
+    setSelectedCommonCodeRow(args.row);
+    onCommonCodeSelect(args.row.cmmnCd.toString());
   };
 
-  const getCommonCodeRowClass = (row: DataProps) => {
+  const getCommonCodeRowClass = (row: CommonCodeListProps) => {
     return selectedCommonCodeRow?.cmmnCd === row.cmmnCd ? 'bg-[#FFFAEE]' : '';
   };
 

@@ -1,18 +1,60 @@
-"use client";
-
 import { useState } from "react";
 
 import CommonCodeManagerSearch, { CommonCodeSearch } from "./CommonCodeManagerSearch";
-import { useCommonCodeManagerStore } from "@/store/useCommonCodeManagerStore";
-import CommonCodeManagerList from "./CommonCodeManagerList";
+import CommonCodeManagerList, { CommonCodeListProps, CommonDetailCodeListProps } from "./CommonCodeManagerList";
 import { useApiForCommonCodeSearchList } from "@/features/system/commonCodeManager/hooks/useApiForCommonCodeSearchList";
 import ServerErrorCheck from "@/components/providers/ServerErrorCheck";
 
-export function CommonCodeManager() {
-  const [searchInit, setSearchInit] = useState<boolean>(false);
+type Props = {
+  cmmnCd?: string;
+  cmmnNm?: string;
+  useYn?: string;
+}
 
-  const { cmmnCd, setCmmnCd, cmmnNm, setCmmnNm, useYn, setUseYn } = useCommonCodeManagerStore();
+const CommonCodeManager = ({ cmmnCd, cmmnNm, useYn }: Props) => {
+  
+  //          state: 공통코드리스트 상태            //
+  const [ commonCodeList, setCommonCodeList ] = useState<CommonCodeListProps[]>([]);
 
+  //          state: 공통상세코드리스트 상태            //
+  const [ commonDetailCodeList, setCommonDetailCodeList ] = useState<CommonDetailCodeListProps[]>([]);
+
+  //          state: 공통코드 조회 파라매트 상태            //
+  const [ commonCodeSearchParam, setCommonCodeSearchParam ] = useState<CommonCodeSearch>();
+
+  //          state: 선택한 공통코드 상태            //
+  const [ selectedCmmnCd, setSelectedCmmnCd ] = useState<CommonCodeListProps>();
+
+  //          state: 선택한 공통코드 코드 상태            //
+  const [ selectedCmmnCdCd, setSelectedCmmnCdCd ] = useState<string>(cmmnCd ? cmmnCd : '');
+
+  //          state: 선택한 공통상세코드 코드 상태            //
+  const [ selectedCmmnDtlCdCd, setSelectedCmmnDtlCdCd ] = useState<string>('');
+
+  //          event handler: 조회버튼 클릭 이벤트 처리            //
+  const handleCommonCodeSearch = (param: CommonCodeSearch) => {
+    setCommonCodeSearchParam(param);
+  };
+
+  //          event handler: 공통코드 그리드 특정 행 클릭 이벤트 처리            //
+  const handleCommonCodeSelect = (cmmnCd: string) => {
+    if(cmmnCd != '') {
+      setSelectedCmmnCdCd(cmmnCd);
+      setSelectedCmmnCd(commonCodeList.find((item) => item.cmmnCd === cmmnCd) || undefined);
+      setSelectedCmmnDtlCdCd('');
+    } else {
+      setSelectedCmmnCdCd('');
+      setSelectedCmmnCd(undefined);
+      setSelectedCmmnDtlCdCd('');
+    }
+  };
+
+  //          event handler: 공통상세코드 그리드 특정 행 클릭 이벤트 처리            //
+  const handleCommonDetailCodeSelect = (cmmdDtlCd: string) => {
+    setSelectedCmmnDtlCdCd(cmmdDtlCd);
+  };
+
+  //          function: sign in response 처리 함수            //
   const { mutate: getCommonCodeSearchList } = useApiForCommonCodeSearchList({
     onSuccess: (data) => {
       if(data.commonCodeList.length > 0) {
@@ -23,54 +65,21 @@ export function CommonCodeManager() {
     }
   });
 
-  const [commonCodeSearchParam, setCommonCodeSearchParam] = useState<CommonCodeSearch>();
-  const handleCommonCodeSearch = (param: CommonCodeSearch) => {
-    setCmmnCd(param.commonCodeCode+'');
-    setCmmnNm(param.commonCodeName);
-    setUseYn(param.useYn+'');
-  };
-
-  const handleCommonCodeSelect = (cmmnCd: string) => {
-    if(cmmnCd != '') {
-
-    } else {
-      
-    }
-  };
-
-  const handleSearchInit = () => {
-    setSearchInit(false);
-  };
-
   return (
-    <div className='contents-wrap stable-scrollbar' style={{
-      overflowY: 'scroll',
-      scrollbarGutter: 'stable',
-      boxSizing: 'border-box',
-      width: '100%',
-      height: '100%',
-      contain: 'content',
-    }}>
-      <div className='flex flex-col gap-[15px] limit-width'>
-        <CommonCodeManagerSearch init={searchInit} setInit={handleSearchInit} onSearch={handleCommonCodeSearch} />
-        <div className="flex gap-[30px]">
-          <CommonCodeManagerList
-            campaignId={campaignIdForUpdateFromSideMenu || ''}
-            campaignGroupHeaderSearchParam={campaignGroupHeaderSearchParam}
-            campaignGroupList={_campaignGroupList}
-            groupCampaignListData={tempCampaignListData}
-            selectedGroupId={_groupId+''}
-            onCommonCodeSelect={handleCommonCodeSelect}
-            onSelectCommonCodeList={handleSelectCommonCodeList}
-          />
-          {/* <CommonDetailCodeManagerList
-            campaignId={campaignIdForUpdateFromSideMenu || masterCampaignId}
-            isOpen={isOpen}
-            onCampaignPopupClose={onCampaignPopupClose}
-            setInit={handleDetailInit}
-          /> */}
-        </div>
+    <div className='flex flex-col gap-[15px] limit-width'>
+      <CommonCodeManagerSearch cmmnCdCd={cmmnCd || ''}  onSearch={handleCommonCodeSearch} />
+      <div className="flex gap-[30px]">
+        <CommonCodeManagerList
+          cmmnCdSearchParam={commonCodeSearchParam}
+          commonCodeList={commonCodeList}
+          commonDetailCodeList={commonDetailCodeList}
+          selectedCmmnCdCd={selectedCmmnCdCd}
+          onCommonCodeSelect={handleCommonCodeSelect}
+          onCommonDetailCodeSelect={handleCommonDetailCodeSelect}
+        />
       </div>
     </div>
-  );
+  )
 }
+
+export default CommonCodeManager

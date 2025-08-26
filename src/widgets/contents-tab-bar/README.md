@@ -1,4 +1,4 @@
-# Dashboard Tab Bar Widget
+# Contents Tab Bar Widget
 
 드래그 앤 드롭이 가능한 동적 탭바 위젯
 
@@ -31,7 +31,7 @@
 ## 🏗️ 컴포넌트 구조
 
 ```
-src/widgets/dashboard-tab-bar/
+src/widgets/contents-tab-bar/
 ├── ui/
 │   ├── tab-bar.tsx          # 메인 탭바 컨테이너
 │   ├── dynamic-tab.tsx      # 기본 탭 컴포넌트
@@ -47,7 +47,7 @@ src/widgets/dashboard-tab-bar/
 ### 기본 사용법
 
 ```tsx
-import { TabBar } from '@/widgets/dashboard-tab-bar';
+import { TabBar } from '@/widgets/contents-tab-bar';
 
 function MyComponent() {
   const tabs = [
@@ -70,9 +70,9 @@ function MyComponent() {
 ### Zustand 스토어 사용
 
 ```tsx
-import { useTabStore } from '@/widgets/dashboard-tab-bar';
+import { useTabStore } from '@/widgets/contents-tab-bar';
 
-function Dashboard() {
+function Contents() {
   const { 
     tabs, 
     activeTabId, 

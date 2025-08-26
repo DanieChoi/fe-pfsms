@@ -3,7 +3,7 @@
 import type { ComponentType } from 'react';
 import { views } from './index';
 
-// "/dashboard/..." 경로를 받아 key("..." 부분)로 변환하는 유틸
+// "/contents/..." 경로를 받아 key("..." 부분)로 변환하는 유틸
 const keyFromHref = (href: string): string | null => {
     if (!href) return null;
     const i = href.toLowerCase().indexOf('/contents/');
