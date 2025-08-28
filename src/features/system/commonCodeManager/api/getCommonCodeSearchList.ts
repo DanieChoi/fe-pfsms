@@ -7,5 +7,6 @@ export const getCommonCodeSearchList = async (): Promise<GetCommonCodeListRespon
     endpoint,
     { headers: { "Content-Type": "application/json", Accept: "application/json" } }
   );
+  console.log('반환코드: ', data.rtnCode)
   return data;
 };

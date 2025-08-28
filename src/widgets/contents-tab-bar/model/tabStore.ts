@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { DynamicTab, TabArea, TabAreas, SplitMode } from './types';
-import { stat } from 'fs';
+import { findTopByMenuNo } from '@/shared/config/common-nav-menus';
 
 // localStorage 유틸리티 함수들
 const STORAGE_KEY = 'contents-tab-store';
@@ -442,18 +442,18 @@ export const useTabStore = create<TabStore>((set, get) => {
       const activeCategories = new Set<string>();
 
       // 각 영역의 활성 탭만 기준으로 최상위 카테고리 찾기
-      // Object.values(activeTabsByArea).forEach(activeTabId => {
-      //   if (activeTabId) {
-      //     const tabInfo = get().findTabById(activeTabId);
+      Object.values(activeTabsByArea).forEach(activeTabId => {
+        if (activeTabId) {
+          const tabInfo = get().findTabById(activeTabId);
 
-      //     if (tabInfo && tabInfo.tab.menuNo) {
-      //       const topMenu = findTopByMenuNo(tabInfo.tab.menuNo);
-      //       if (topMenu) {
-      //         activeCategories.add(topMenu.menuNo);
-      //       }
-      //     }
-      //   }
-      // });
+          // if (tabInfo && tabInfo.tab.menuNo) {
+          //   const topMenu = findTopByMenuNo(tabInfo.tab.menuNo, availableMenu);
+          //   if (topMenu) {
+          //     activeCategories.add(topMenu.menuNo);
+          //   }
+          // }
+        }
+      });
 
       // 기존 카테고리와 새 카테고리가 동일하면 상태 업데이트 스킵 (무한 루프 방지)
       const currentCategories = Array.from(activeHeaderCategories).sort();

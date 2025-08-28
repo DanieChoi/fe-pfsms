@@ -1,8 +1,8 @@
 "use client";
 
 import type { ComponentType } from "react";
-import { CommonCodeManager } from "./system/CommonCodeManager";
 import { makeScaffoldView } from "./scaffold";
+import CommonCodeManager from "./system/CommonCodeManager";
 
 // 미구현 화면은 스캐폴드로 제공, 구현되면 해당 View로 교체
 const OrganizationView = makeScaffoldView("조직/인사 관리", "조직 구조와 인사 관리를 위한 화면입니다.");

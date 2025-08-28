@@ -473,7 +473,7 @@ export default function ContentsLayout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <ProtectedRoute>
+    // <ProtectedRoute>
       <DndContext
         sensors={sensors}
         collisionDetection={customCollisionDetection}
@@ -534,6 +534,6 @@ export default function ContentsLayout({ children }: { children: ReactNode }) {
           )}
         </DragOverlay>
       </DndContext>
-    </ProtectedRoute>
+    // </ProtectedRoute>
   );
 }

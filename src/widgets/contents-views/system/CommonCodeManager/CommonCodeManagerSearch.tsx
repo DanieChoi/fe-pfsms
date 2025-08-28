@@ -17,11 +17,10 @@ export interface CommonCodeSearch {
 }
 
 type Props = {
-  cmmnCdCd: string;
   onSearch: (param: CommonCodeSearch) => void;
 }
 
-export default function CommonCodeManagerSearch({ cmmnCdCd, onSearch }: Props) {
+export default function CommonCodeManagerSearch({ onSearch }: Props) {
   const [commonCodeCd, setCommonCodeCd] = useState('');     // 공통코드코드
   const [commonCodeNm, setCommonCodeNm] = useState('');     // 공통코드명
   const [useYn, setUseYn] = useState('all');                // 사용여부
@@ -77,9 +76,7 @@ export default function CommonCodeManagerSearch({ cmmnCdCd, onSearch }: Props) {
         </div>
       </div>
       <div className="flex justify-end gap-2 items-center">
-        {cmmnCdCd !== '' &&
-          <CommonButton onClick={onButtonSearch}>조회</CommonButton>
-        }
+        <CommonButton onClick={onButtonSearch}>조회</CommonButton>
       </div>
     </div>
   );
